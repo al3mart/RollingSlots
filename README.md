@@ -1,4 +1,7 @@
 # Rolling Slots Module
+![RollingSlots](res/RollingSlots.png)
+
+---
 
 ## Overview
 This pallet is in charge of managing two groups of parachain slots. Long term slots and short term slots, which will be receiving leases with different cadence.
