@@ -1,0 +1,8 @@
+[package]
+name = "pallet-rolling-slots"
+version = "0.1.0"
+authors = ["al3mart <alejandro@parity.io>"]
+edition = "2018"
+
+
+[dependencies]
