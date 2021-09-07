@@ -53,8 +53,8 @@ pub mod pallet {
 
     #[pallet::storage]
     #[pallet::getter(fn short_term_slots)]
-    // Number of short term slots. This is the number of parathreads that will be upgraded to
-    // parachains every rotation.
+    // Number of short term slots. This is the number of parathreads that will be rotated
+    // every `ShortTermSlotDuration`
     pub(super) type ShortTermSlots<T> = StorageValue<_, u32, ValueQuery>;
 
     #[pallet::storage]
@@ -65,7 +65,7 @@ pub mod pallet {
     #[pallet::storage]
     #[pallet::getter(fn long_term_slot_duration)]
     // Number of leases assigned to a long term slot
-    pub(super) type ShortTermSlotDuration<T> = StorageValue<_, u32, ValueQuery>;
+    pub(super) type LongTermSlotDuration<T> = StorageValue<_, u32, ValueQuery>;
 
     #[pallet::storage]
     #[pallet::getter(fn long_term_paras)]
