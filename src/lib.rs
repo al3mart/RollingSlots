@@ -1,9 +1,14 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+// so far identified deps
 pub use pallet::*;
 use primitives::v1::Id as ParaId;
 use runtime_common::traits::Registrar;
 use runtime_parachains::{paras, ParaLifeCycle};
+use frame_support::{
+    BoundedVec,
+    traits::{Get},
+};
 
 //#[cfg(test)]
 //mod mock;
@@ -35,10 +40,15 @@ pub mod pallet {
         /// Parachain registrar type. We use this to ensure that only the manager of a para
         /// is able to register it for its slots.
         type Registrar: Registrar<AccountId = Self::AccountId>;
+        
+        /// Maximum number of concurrentsimultaneous paras registered for a slot
+        #[pallet::constant]
+        type MaxNumberOfParas: Get<u32>;
     }
 
     #[pallet::pallet]
     #[pallet::generate_store(pub(super) trait Store)]
+    #[pallet::generate_storage_info]
     pub struct Pallet<T>(_);
 
     #[pallet::storage]
@@ -60,12 +70,12 @@ pub mod pallet {
     #[pallet::storage]
     #[pallet::getter(fn long_term_paras)]
     // Paras registered for a long term slot
-    pub(super) type LongTermParas<T> = StorageValue<_, Vec<ParaId>, ValueQuery>;
+    pub(super) type LongTermParas<T> = StorageValue<_, BoundedVec<ParaId, MaxNumberOfParas>, ValueQuery>;
 
     #[pallet::storage]
     #[pallet::getter(fn short_term_paras)]
     // Paras registered for a short term slot
-    pub(super) type ShortTermParas<T> = StorageValue<_, Vec<ParaId>, ValueQuery>;
+    pub(super) type ShortTermParas<T> = StorageValue<_, BoundedVec<ParaId, MaxNumberOfParas>, ValueQuery>;
 
     #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
