@@ -3,6 +3,10 @@
 
 ---
 
+At this moment this concept is being implemented [here](https://github.com/paritytech/polkadot/pull/3943).
+
+---
+
 ## Overview
 The name of this repo does a horrible job descbribing the task this pallet is meant to do.
  But I thought it was a funny word play.
